@@ -1,2 +1,21 @@
 <h1>Wellcome#menu</h1>
 <p>Find me in app/views/wellcome/menu.html.erb</p>
+<ul class="nav nav-tabs">
+    <% @sections.each do |section| %>
+      <li class="nav-item">
+          <%= link_to section, menu_path(section: section), class: 'nav-link' %>
+      </li>
+    <% end %>
+</ul>
+<% @foods.each do |food| %>
+  <div class="col-xs-5">
+    <div class="card">
+      <%= image_tag food.image_url, class:"card-img-top img-fluid center-block", alt:"Card image cap" %>
+      <div class="card-block">
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Food Items</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Section</th>
+      <th>Image url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @food_items.each do |food_item| %>
+      <tr>
+        <td><%= food_item.name %></td>
+        <td><%= food_item.description %></td>
+        <td><%= food_item.price %></td>
+        <td><%= food_item.section %></td>
+        <td><%= image_tag food_item.image_url, class:"img-thumbnail" %></td>
+        <td><%= link_to 'Show', food_item %></td>
+        <td><%= link_to 'Edit', edit_food_item_path(food_item) %></td>
+        <td><%= link_to 'Destroy', food_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Food item', new_food_item_path %>
