@@ -4,6 +4,7 @@ class WellcomeController < ApplicationController
 
   def menu
     @sections = %w(Breakfast Lunch Dinner Drinks)
+    @order = %w(Order not)
     @foods = FoodItem.where(section: params[:section])
   end
 

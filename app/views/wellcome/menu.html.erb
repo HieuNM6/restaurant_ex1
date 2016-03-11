@@ -7,15 +7,29 @@
       </li>
     <% end %>
 </ul>
-<% @foods.each do |food| %>
-  <div class="col-xs-5">
-    <div class="card">
-      <%= image_tag food.image_url, class:"card-img-top img-fluid center-block", alt:"Card image cap" %>
-      <div class="card-block">
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </p>
+<br>
+<br>
+<div class="card card-column">
+  <% @foods.each do |food| %>
+      <div class="col-xs-5">
+        <div class="card card-danger" style="box-shadow: 2px 2px 4px #000000">
+          <%= image_tag food.image_url, class:"card-img-top img-fluid", alt:"Card image cap" %>
+          <div class="card-block">
+            <h4 class="card-title" style="color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000;"><%= food.name %></h4>
+            <p class="card-text" style="color: white;">
+               <%= Faker::Lorem.paragraph  %>
+            </p>
+              <%= link_to "order", menu_path(), class: "btn btn-primary", style: "box-shadow: 2px 2px 4px #000000" %>
+          </div>
+          <div class="card-footer text-muted">
+             <small>
+               <%= "145 Views"  %>
+             </small>
+             <small>
+               <%= food.created_at  %>
+             </small>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
