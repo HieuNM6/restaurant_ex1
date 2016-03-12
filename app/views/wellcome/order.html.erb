@@ -1,0 +1,25 @@
+<h1 class="text-xs-center display-4">Check out</h1>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>#</th>
+      <th>Dish</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+ <tbody>
+   <% @foods.each_with_index do |food, i|  %>
+   <tr>
+     <th scope="row"><%= i+1 %></th>
+      <td><%= food.name %></td>
+      <td class="text-xs-right"><%= food.price %> Đ</td>
+   </tr>
+   <% @total_price += food.price %>
+   <% end %>
+    <tr>
+      <td></td>
+      <td></td>
+      <th class="text-xs-right">Total Price: <%= @total_price %> Đ</th>
+    </tr>
+ </tbody>
+</table>

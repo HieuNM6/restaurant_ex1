@@ -1,25 +1,20 @@
-<h1>Wellcome#menu</h1>
-<p>Find me in app/views/wellcome/menu.html.erb</p>
 <div class="row">
   <div class="col-xl-12">
     <ul class="nav nav-pills">
       <li class="nav-item">
         <%= link_to "All", menu_path, class: 
-          "nav-link #{params[:section].blank? ? "active":""}",
-          style: "color: white" %>
+          "nav-link #{params[:section].blank? ? "active":""}"%>
        </li>
         <% @sections.each do |section| %>
           <li class="nav-item">
             <%= link_to section, menu_path(section: section), class: 
-              "nav-link #{section==params[:section] ? "active":""}",
-              style: "color: white;"%>
+              "nav-link #{section==params[:section] ? "active":""}"%>
           </li>
         <% end %>
     </ul>
   </div>
 </div>
 <br>
-<%= console %>
 <br>
   <div class=" row card-column">
     <% @foods.each do |food| %>
@@ -50,7 +45,7 @@
                     <% else  %>
                      <% if session[:order_ids].include? food.id.to_s %>
                       <%= link_to "Bỏ khỏi giỏ hàng",
-                        menu_path(order: food.id, section: params[:section]), 
+                        menu_path(un_order: food.id, section: params[:section]), 
                         class: "btn btn-secondary" %>
                     <% else  %>
                         <%= link_to "Đặt vào giỏ hàng",

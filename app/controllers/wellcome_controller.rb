@@ -8,6 +8,9 @@ class WellcomeController < ApplicationController
     unless params[:order].blank?
       (session[:order_ids] ||= []) << params[:order]
     end
+    unless params[:un_order].blank?
+      session[:order_ids].delete( params[:un_order])
+    end
   end
 
   def contact
@@ -21,6 +24,11 @@ class WellcomeController < ApplicationController
   end
 
   def order
+    @foods = []
+    session[:order_ids].each do |id|
+      @foods << FoodItem.find(id)
+    end
+    @total_price = 0
 
   end
 
