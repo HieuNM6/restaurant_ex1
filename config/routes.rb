@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+  resources :user_orders, only: [:create]  
   resources :food_items
   root 'wellcome#index'
 
@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'contact' => 'wellcome#contact'
 
   get 'order' => 'wellcome#order'
+
+  get 'check' => 'wellcome#check_out'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

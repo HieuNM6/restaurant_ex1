@@ -29,11 +29,11 @@ class WellcomeController < ApplicationController
       @foods << FoodItem.find(id)
     end
     @total_price = 0
+    @user = UserOrder.new
+  end
+
+  def check_out
 
   end
 
-  def add_to_order(food)
-    session[:order_id] = food.id
-    redirect_to '/menu'
-  end
 end
