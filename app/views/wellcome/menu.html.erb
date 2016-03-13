@@ -5,6 +5,7 @@
     </button>
     <div class="dropdown-menu">
       <%= link_to "Alphabetical", menu_path(sort: "alphabetical", section: params[:section]), class:"dropdown-item" %>
+      <%= link_to "View", menu_path(sort: "view", section: params[:section]), class:"dropdown-item" %>
       <%= link_to "Price low to high", menu_path(sort: "price low to high", section: params[:section]), class:"dropdown-item" %>
       <%= link_to "Price high to low", menu_path(sort: "price high to low", section: params[:section]), class:"dropdown-item" %>
     </div>
@@ -31,7 +32,7 @@
     <% @foods.each do |food| %>
           <div class="col-xl-4 col-md-6 col-sm-12">
             <div class="card" style="box-shadow: 2px 2px 4px #000000;">
-              <%= image_tag food.image_url, class:"card-img-top img-fluid", alt:"Card image cap" %>
+              <%=link_to image_tag(food.image_url, class:"card-img-top img-fluid", alt:"Card image cap"), food_item_path(food) %>
               <div class="card-block" >
                 <h3 class="card-title" style="text-shadow: 2px 2px 4px #D8C0D5;">
                   <strong><%= food.name %></strong>
@@ -69,7 +70,7 @@
               </div>
               <div class="card-footer text-muted">
                  <small>
-                   <%= "145 Views"  %>
+                   <%=  pluralize(food.view,"view")  %>
                  </small>
                  <small>
                    <%= food.created_at  %>

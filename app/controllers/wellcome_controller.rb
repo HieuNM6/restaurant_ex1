@@ -18,6 +18,8 @@ class WellcomeController < ApplicationController
       @foods = @foods.sort { |a,b| a.price <=> b.price}
     when "price high to low"
       @foods = @foods.sort { |a,b| b.price <=> a.price}
+    when "view"
+      @foods = @foods.sort { |a,b| b.view <=> a.view}
     end
   end
 
