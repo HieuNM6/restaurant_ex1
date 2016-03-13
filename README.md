@@ -4,9 +4,9 @@
 
 Submitted by: **HieuNM6**
 
-Time spent: **XX** hours spent in total
+Time spent: **15** hours spent in total
 
-URL: **heroku-app-url**
+URL: https://desolate-eyrie-45495.herokuapp.com/
 
 ## User Stories
 
@@ -63,11 +63,11 @@ Here's a walkthrough of implemented user stories:
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I focus on some feature and then it make me out of time because of that I haven't added any validation for model, relayout, email feature,... Last time I will overcome my problem.
 
 ## License
 
-    Copyright [yyyy] [HieuNM6]
+    Copyright [2016] [HieuNM6]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
