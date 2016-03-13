@@ -10,6 +10,17 @@
       <%= link_to "Price high to low", menu_path(sort: "price high to low", section: params[:section]), class:"dropdown-item" %>
     </div>
   </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Filter by cuisine
+    </button>
+    <div class="dropdown-menu">
+      <%= link_to "Pork", menu_path(cuisine: "Pork", section: params[:section]), class:"dropdown-item" %>
+      <%= link_to "Chicken", menu_path(cuisine: "Chicken", section: params[:section]), class:"dropdown-item" %>
+      <%= link_to "Beef", menu_path(cuisine: "Beef", section: params[:section]), class:"dropdown-item" %>
+      <%= link_to "Fish", menu_path(cuisine: "Fish", section: params[:section]), class:"dropdown-item" %>
+    </div>
+  </div>
 </div> <div class="row">
   <div class="col-xl-12">
     <ul class="nav nav-pills">

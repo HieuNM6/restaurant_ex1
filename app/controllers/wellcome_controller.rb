@@ -21,6 +21,16 @@ class WellcomeController < ApplicationController
     when "view"
       @foods = @foods.sort { |a,b| b.view <=> a.view}
     end
+    case params[:cuisine]
+    when "Pork"
+      @foods = @foods.select { |f| f.cuisine == "Pork"}
+    when "Chicken"
+      @foods = @foods.select { |f| f.cuisine == "Chicken"}
+    when "Fish"
+      @foods = @foods.select { |f| f.cuisine == "Fish"}
+    when "Beef"
+      @foods = @foods.select { |f| f.cuisine == "Beef"}
+    end
   end
 
   def contact
