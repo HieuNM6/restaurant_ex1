@@ -1,4 +1,15 @@
-<div class="row">
+<div class="text-xs-right">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Sort by
+    </button>
+    <div class="dropdown-menu">
+      <%= link_to "Alphabetical", menu_path(sort: "alphabetical", section: params[:section]), class:"dropdown-item" %>
+      <%= link_to "Price low to high", menu_path(sort: "price low to high", section: params[:section]), class:"dropdown-item" %>
+      <%= link_to "Price high to low", menu_path(sort: "price high to low", section: params[:section]), class:"dropdown-item" %>
+    </div>
+  </div>
+</div> <div class="row">
   <div class="col-xl-12">
     <ul class="nav nav-pills">
       <li class="nav-item">

@@ -11,6 +11,14 @@ class WellcomeController < ApplicationController
     unless params[:un_order].blank?
       session[:order_ids].delete( params[:un_order])
     end
+    case params[:sort]
+    when "alphabetical"
+      @foods = @foods.sort { |a,b| a.name.downcase <=> b.name.downcase } 
+    when "price low to high"
+      @foods = @foods.sort { |a,b| a.price <=> b.price}
+    when "price high to low"
+      @foods = @foods.sort { |a,b| b.price <=> a.price}
+    end
   end
 
   def contact
