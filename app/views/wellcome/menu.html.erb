@@ -59,22 +59,22 @@
                 <hr>
                   <div class="text-xs-center">
                     <div class="btn-group">
-                      <%= link_to "Đặt hàng", order_path(), 
+                      <%= link_to "Đặt hàng", order_path(order: food.id), 
                         class: "btn btn-secondary"%>
                       <% if session[:order_ids].nil? %>
                        <%= link_to "Đặt vào giỏ hàng",
                         menu_path(order: food.id, section: params[:section]), 
                         class: "btn btn-secondary" %>
-                    <% else  %>
-                     <% if session[:order_ids].include? food.id.to_s %>
-                      <%= link_to "Bỏ khỏi giỏ hàng",
-                        menu_path(un_order: food.id, section: params[:section]), 
-                        class: "btn btn-secondary" %>
-                    <% else  %>
+                      <% else  %>
+                       <% if session[:order_ids].include? food.id.to_s %>
+                        <%= link_to "Bỏ khỏi giỏ hàng",
+                          menu_path(un_order: food.id, section: params[:section]), 
+                          class: "btn btn-secondary" %>
+                      <% else  %>
                         <%= link_to "Đặt vào giỏ hàng",
-                        menu_path(order: food.id, section: params[:section]), 
-                        class: "btn btn-secondary" %>
-                    <% end %>
+                          menu_path(order: food.id, section: params[:section]), 
+                          class: "btn btn-secondary" %>
+                      <% end %>
                   <% end %>
                     </div>
                   </div>

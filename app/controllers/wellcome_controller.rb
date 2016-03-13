@@ -44,8 +44,21 @@ class WellcomeController < ApplicationController
   end
 
   def order
+    unless params[:order].nil?
+      session[:order_ids] ||= []
+      session[:order_ids] << params[:order].to_s
+    end
+    unless params[:un_order].nil?
+      session[:order_ids].delete( params[:un_order])
+      if(session[:order_ids].blank?)
+        session.delete(:order_ids)
+      else
+        redirect_to order_path
+      end
+    end
     if session[:order_ids].nil?
       redirect_to menu_path
+      return
     end
     @foods = []
     session[:order_ids].each do |id|
