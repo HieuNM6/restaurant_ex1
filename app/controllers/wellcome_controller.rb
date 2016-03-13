@@ -31,6 +31,9 @@ class WellcomeController < ApplicationController
     when "Beef"
       @foods = @foods.select { |f| f.cuisine == "Beef"}
     end
+    unless params[:search].nil?
+      @foods = FoodItem.search(params[:search])
+    end
   end
 
   def contact

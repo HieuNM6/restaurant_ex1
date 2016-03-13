@@ -10,18 +10,24 @@
     <li class="nav-item <%= is_active("wellcome", "contact") %>">
       <%= link_to "Contact us", contact_path, class: "nav-link" %>
     </li>
-    <% unless session[:order_ids].nil? %>
       <div class="pull-xs-right">
-        <li class="nav-item">
-          <%= link_to "#{pluralize(session[:order_ids].count, "Item")} in the cart",
-           "#" , class: "nav-link" %>
-        </li>      
-        <li class="nav-item">
-          <%= link_to "Check out", order_path, 
-          class: "nav-link #{controller.controller_name == "wellcome" && 
-            controller.action_name == "order" ? "active" : ""}" %>
-        </li>
+        <% unless session[:order_ids].nil? %>
+            <li class="nav-item">
+              <%= link_to "#{pluralize(session[:order_ids].count, "Item")} in the cart",
+               "#" , class: "nav-link" %>
+            </li>      
+            <li class="nav-item">
+              <%= link_to "Check out", order_path, 
+              class: "nav-link #{controller.controller_name == "wellcome" && 
+                controller.action_name == "order" ? "active" : ""}" %>
+            </li>
+          <% end %>
+             <%= form_tag(menu_path, :method => "get", class: "nav-item form-inline pull-xs-right", id: "search-form") do %>
+                <div class="input-append">
+                  <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Dish" %>
+                  <button class="btn btn-secondary-outline" type="submit">Search</button>
+                </div> 
+            <% end %>
       </div>
-    <% end %>
   </ul>
 </nav>

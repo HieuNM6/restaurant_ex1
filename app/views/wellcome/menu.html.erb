@@ -40,6 +40,9 @@
 <br>
 <br>
   <div class=" row card-column">
+    <% if @foods.blank? %>
+      <h1 class="text-xs-center">Not Found!</h1>
+    <% end %>
     <% @foods.each do |food| %>
           <div class="col-xl-4 col-md-6 col-sm-12">
             <div class="card" style="box-shadow: 2px 2px 4px #000000;">
@@ -80,11 +83,11 @@
                   </div>
               </div>
               <div class="card-footer text-muted">
-                 <small>
+                 <small >
                    <%=  pluralize(food.view,"view")  %>
                  </small>
-                 <small>
-                   <%= food.created_at  %>
+                 <small class="pull-xs-right">
+                   Post at: <%= food.created_at.strftime('%Y-%m-%d')  %>
                  </small>
               </div>
             </div>

@@ -1,29 +1,70 @@
 <p id="notice"><%= notice %></p>
-<%= @food_item.view %>
-<p>
-  <strong>Name:</strong>
-  <%= @food_item.name %>
-</p>
+<div class="row">
+  <div class="col-xs-7">
+    <%= image_tag @bigger_url, class:"img-fluid img-thumbnail" %>
+  </div>
+  <div class="col-xs-5 pull-xs-left">
+    <h1>
+      <%= @food_item.name %>
+    </h1>
+    <hr> 
+    <h5>
+      <strong>Description:</strong>
+      <%= @food_item.description %>
+      <%= Faker::Lorem.paragraph %>
+    </h5>
+    
+    <h5>
+      <strong>Price:</strong>
+      <div class="label label-primary">
+        <%= @food_item.price %> VND
+      </div>
+    </h5>
+    
+    <h5>
+      <strong>Section:</strong>
+      <%= @food_item.section %>
+    </h5>
 
-<p>
-  <strong>Description:</strong>
-  <%= @food_item.description %>
-</p>
+    <h5>
+      <strong>Cuisine:</strong>
+      <%= @food_item.cuisine %>
+    </h5>
 
-<p>
-  <strong>Price:</strong>
-  <%= @food_item.price %>
-</p>
+    <h5>
+      <div class="small text-muted">
+        <strong>View:</strong>
+        <%= @food_item.view %>
+      </div>
+    </h5>
 
-<p>
-  <strong>Section:</strong>
-  <%= @food_item.section %>
-</p>
+    <h5>
+      <div class="small text-muted">
+        <strong>Post at:</strong>
+        <%= @food_item.created_at.strftime('%Y-%m-%d')  %>
+      </div>
+    </h5>    
+    
+    <div class="btn-group">
+      <%= link_to "Đặt hàng", order_path(order: @food_item.id), 
+        class: "btn btn-secondary"%>
+      <% if session[:order_ids].nil? %>
+       <%= link_to "Đặt vào giỏ hàng",
+        menu_path(order: @food_item.id, section: params[:section]), 
+        class: "btn btn-secondary" %>
+      <% else  %>
+       <% if session[:order_ids].include? @food_item.id.to_s %>
+        <%= link_to "Bỏ khỏi giỏ hàng",
+          menu_path(un_order: @food_item.id, section: params[:section]), 
+          class: "btn btn-secondary" %>
+        <% else  %>
+          <%= link_to "Đặt vào giỏ hàng",
+            menu_path(order: @food_item.id, section: params[:section]), 
+            class: "btn btn-secondary" %>
+        <% end %>
+      <% end %>
+    </div>
 
-<p>
-  <strong>Image url:</strong>
-  <%= @food_item.image_url %>
-</p>
-
-<%= link_to 'Edit', edit_food_item_path(@food_item) %> |
-<%= link_to 'Back', food_items_path %>
+    
+  </div>
+</div>

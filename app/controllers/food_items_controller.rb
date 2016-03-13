@@ -13,6 +13,9 @@ class FoodItemsController < ApplicationController
     @food_item.view ||= 0
     @food_item.view += 1
     @food_item.save!
+    url = @food_item.image_url.split("/").last
+    @bigger_url = "http://loremflickr.com/640/640/" + url
+    
   end
 
   # GET /food_items/new
