@@ -1,0 +1,35 @@
+<h1 class="text-xs-center display-4"> Thanks for your's order </h1>
+<div class="row">
+  <table class="table">
+    <thead class="thead-default">
+      <tr>
+        <th>#</th>
+        <th>Dish</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+   <tbody>
+     <% @orders.each_with_index do |dish, i|  %>
+     <tr>
+       <th scope="row"><%= i+1 %></th>
+        <td><%= dish.name %></td>
+        <td class="text-xs-right"><%= dish.price %> Đ</td>
+     </tr>
+     <% @total_price += dish.price %>
+     <% end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <th class="text-xs-right">Total Price: <%= @total_price %> Đ</th>
+      </tr>
+   </tbody>
+  </table>
+</div>
+<h3 class="text-xs-center">Your's information</h3>
+<h5><strong>Name:</strong> <%= @user.name %> </h5>
+<h5><strong>Phone Number:</strong> <%= @user.number %> </h5>
+<h5><strong>Addess:</strong> <%= @user.address %> </h5>
+<h5><strong>Ordered at:</strong> <%= @order.created_at.strftime('%Y-%m-%d %H:%M') %></h5>
+<div class="text-xs-center">
+  <%= link_to "Back to menu", menu_path, class: "btn btn-secondary" %>
+</div>

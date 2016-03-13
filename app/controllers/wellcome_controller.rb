@@ -24,6 +24,9 @@ class WellcomeController < ApplicationController
   end
 
   def order
+    if session[:order_ids].nil?
+      redirect_to menu_path
+    end
     @foods = []
     session[:order_ids].each do |id|
       @foods << FoodItem.find(id)
@@ -33,7 +36,18 @@ class WellcomeController < ApplicationController
   end
 
   def check_out
-
+    if(flash[:success].nil?)
+      redirect_to menu_path
+    end
+    @order = OrderList.find(params[:order_list_id])
+    @orders = []
+    orders_lists = @order.list.split(" ")
+    orders_lists.each do |o|
+      @orders << FoodItem.find(o.to_i)
+    end 
+    @user = UserOrder.find(@order.user_order_id)
+    @total_price = 0
+    session.delete(:order_ids)
   end
 
 end

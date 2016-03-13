@@ -10,22 +10,18 @@
     <li class="nav-item <%= is_active("wellcome", "contact") %>">
       <%= link_to "Contact us", contact_path, class: "nav-link" %>
     </li>
-    <% unless session[:order_ids].empty? %>
-      <li class="nav-item">
-        <%= link_to "Check out", order_path, 
-        class: "nav-link #{controller.controller_name == "wellcome" && 
-          controller.action_name == "order" ? "active" : ""}" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "#{pluralize(session[:order_ids].count, "Item")} in the cart",
-         "#" , class: "nav-link" %>
-      </li>      
+    <% unless session[:order_ids].nil? %>
+      <div class="pull-xs-right">
+        <li class="nav-item">
+          <%= link_to "#{pluralize(session[:order_ids].count, "Item")} in the cart",
+           "#" , class: "nav-link" %>
+        </li>      
+        <li class="nav-item">
+          <%= link_to "Check out", order_path, 
+          class: "nav-link #{controller.controller_name == "wellcome" && 
+            controller.action_name == "order" ? "active" : ""}" %>
+        </li>
+      </div>
     <% end %>
   </ul>
-  <form class="form-inline pull-xs-right">
-    <% if !session[:order_ids].nil? %>
-    <% end %>
-    <input class="form-control" type="text" placeholder="Search">
-    <button class="btn btn-success-outline" type="submit">Search</button>
-  </form>
 </nav>

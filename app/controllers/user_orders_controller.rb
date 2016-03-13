@@ -3,8 +3,9 @@ class UserOrdersController < ApplicationController
    @user = UserOrder.new(user_order_params)
 
    if @user.save
-     @user.order_lists.create(list: params[:order_list])
-     redirect_to root_path
+     list = @user.order_lists.create(list: params[:order_list])
+     flash[:success] = "OK"
+     redirect_to check_path(order_list_id: list.id)
    else
      redirect_to order_path
    end
