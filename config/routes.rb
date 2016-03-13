@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :user_orders, only: [:create]  
+  resources :reviews, only: [:create]
   resources :food_items
   root 'wellcome#index'
 

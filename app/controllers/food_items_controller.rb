@@ -15,6 +15,22 @@ class FoodItemsController < ApplicationController
     @food_item.save!
     url = @food_item.image_url.split("/").last
     @bigger_url = "http://loremflickr.com/640/640/" + url
+    @review = Review.new
+    @reviews = @food_item.reviews
+    unless @reviews.nil?
+      star_avg = 0.0
+      @reviews.each do |r| 
+        star_avg += r.star 
+      end
+      star_avg = star_avg / @reviews.count
+      if (star_avg.nan?)
+        @food_item.star_avg = 0.0
+        @food_item.save!
+      else
+        @food_item.star_avg = star_avg
+        @food_item.save!
+      end
+    end
     
   end
 

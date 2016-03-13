@@ -52,7 +52,7 @@
                   <strong><%= food.name %></strong>
                 </h3>
                 <p class="card-text" >
-                   <%= Faker::Lorem.paragraph  %>
+                   <%= food.description  %>
                 </p>
                 <h5 class="text-xs-right">
                   <span class="label label-pill label-primary">
@@ -84,7 +84,10 @@
               </div>
               <div class="card-footer text-muted">
                  <small >
-                   <%=  pluralize(food.view,"view")  %>
+                   <%=  pluralize(food.view,"view")  %> 
+                   <% if (food.star_avg != 0.0) && (!food.star_avg.nil?)%>
+                     | star: <%= food.star_avg.round(2) %>/5.0
+                   <% end %>
                  </small>
                  <small class="pull-xs-right">
                    Posted at: <%= food.created_at.strftime('%Y-%m-%d')  %>
