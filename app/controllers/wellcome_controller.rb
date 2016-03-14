@@ -4,64 +4,23 @@ class WellcomeController < ApplicationController
 
   def menu
     @sections = %w(Breakfast Lunch Dinner Drinks)
-    @food_items = filter_by_section(params[:section])
-    unless params[:order].blank?
-      (session[:order_ids] ||= []) << params[:order]
-    end
-    unless params[:un_order].blank?
-      session[:order_ids].delete( params[:un_order])
-    end
-    case params[:sort]
-    when "alphabetical"
-      @food_items = @food_items.sort { |a,b| a.name.downcase <=> b.name.downcase } 
-    when "price low to high"
-      @food_items = @food_items.sort { |a,b| a.price <=> b.price}
-    when "price high to low"
-      @food_items = @food_items.sort { |a,b| b.price <=> a.price}
-    when "view"
-      @food_items = @food_items.sort { |a,b| b.view <=> a.view}
-    end
-    case params[:cuisine]
-    when "Pork"
-      @food_items = @food_items.select { |f| f.cuisine == "Pork"}
-    when "Chicken"
-      @food_items = @food_items.select { |f| f.cuisine == "Chicken"}
-    when "Fish"
-      @food_items = @food_items.select { |f| f.cuisine == "Fish"}
-    when "Beef"
-      @food_items = @food_items.select { |f| f.cuisine == "Beef"}
-    end
-    unless params[:search].nil?
-      @food_items = FoodItem.search(params[:search])
-    end
+    @food_items = filter_food_item_by_section(params[:section])
+    push_food_item_to_cart(params[:order])
+    pop_food_item_out_of_cart(params[:un_order])
+    @food_items = sort_food_item_by_sort_params(params[:sort], @food_items)
+    @food_items = filter_food_item_by_cuisine_params(params[:cuisine], @food_items)
+    @food_items = filter_by_search_params(params[:search],@food_items)
   end
 
   def contact
   end
-  def filter_by_section(sections)
-    if sections.blank?
-      @foods = FoodItem.all
-    else
-      @foods = FoodItem.where(section: sections)
-    end
-  end
+
 
   def order
-    unless params[:order].nil?
-      session[:order_ids] ||= []
-      session[:order_ids] << params[:order].to_s
-    end
-    unless params[:un_order].nil?
-      session[:order_ids].delete( params[:un_order])
-      if(session[:order_ids].blank?)
-        session.delete(:order_ids)
-      else
-        redirect_to order_path
-      end
-    end
-    if session[:order_ids].nil?
+    push_food_item_to_cart(params[:order])
+    pop_food_item_out_of_cart(params[:un_order])
+    if(session[:order_ids].blank?)
       redirect_to menu_path
-      return
     end
     @foods = []
     session[:order_ids].each do |id|
@@ -84,6 +43,63 @@ class WellcomeController < ApplicationController
     @user = UserOrder.find(@order.user_order_id)
     @total_price = 0
     session.delete(:order_ids)
+  end
+
+  private
+
+  def filter_food_item_by_section(sections)
+    if sections.blank?
+      @foods = FoodItem.all
+    else
+      @foods = FoodItem.where(section: sections)
+    end
+  end
+
+  def push_food_item_to_cart(order)
+    unless order.blank?
+      (session[:order_ids] ||= []) << order
+    end
+  end
+
+  def pop_food_item_out_of_cart(un_order)
+    unless un_order.blank?
+      session[:order_ids].delete(un_order)
+    end
+  end
+
+  def sort_food_item_by_sort_params(params, food)
+    case params
+    when "alphabetical"
+      food = food.sort { |a,b| a.name.downcase <=> b.name.downcase } 
+    when "price low to high"
+      food = food.sort { |a,b| a.price <=> b.price}
+    when "price high to low"
+      food = food.sort { |a,b| b.price <=> a.price}
+    when "view"
+      food = food.sort { |a,b| b.view <=> a.view}
+    end
+    food
+  end
+  
+  def filter_food_item_by_cuisine_params(params, food)
+    case params
+    when "Pork"
+      food = food.select { |f| f.cuisine == "Pork"}
+    when "Chicken"
+      food = food.select { |f| f.cuisine == "Chicken"}
+    when "Fish"
+      food = food.select { |f| f.cuisine == "Fish"}
+    when "Beef"
+      food = food.select { |f| f.cuisine == "Beef"}
+    end
+    food
+  end
+
+  def filter_by_search_params(search,food)
+    unless search.nil?
+      food = food.search(search)
+    end
+    food
   end
 
 end
