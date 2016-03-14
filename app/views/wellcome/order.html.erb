@@ -32,6 +32,10 @@
   <%= form_for @user, url: user_orders_path(order_list: session[:order_ids].join(" ")), 
     html: {method: :post } do |f| %>
     <div class="form-group">
+      <%= f.label :coupon_code,"Coupon code" %>
+      <%= f.text_field :coupon_code, class: "form-control" %>
+    </div>
+    <div class="form-group">
       <%= f.label :name,"Name" %>
       <%= f.text_field :name, class: "form-control" %>
     </div>

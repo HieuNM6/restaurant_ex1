@@ -20,7 +20,13 @@
       <tr>
         <td></td>
         <td></td>
-        <th class="text-xs-right">Total Price: <%= @total_price + 20000%> Đ (included delivery cost)</th>
+        <% if @order.coupon_code == "CODERSCHOOL" %>
+          <th class="text-xs-right">total price: 
+            <%= (@total_price + 20000)*0.7 %> đ (included delivery cost and coupon)</th>
+        <% else %>
+          <th class="text-xs-right">total price: 
+            <%= @total_price + 20000 %> đ (included delivery cost)</th>
+        <% end %>
       </tr>
    </tbody>
   </table>
