@@ -40,60 +40,8 @@
 <br>
 <br>
   <div class=" row card-column">
-    <% if @foods.blank? %>
+    <% if @food_items.blank? %>
       <h1 class="text-xs-center">Not Found!</h1>
     <% end %>
-    <% @foods.each do |food| %>
-          <div class="col-xl-4 col-md-6 col-sm-12">
-            <div class="card" style="box-shadow: 2px 2px 4px #000000;">
-              <%=link_to image_tag(food.image_url, class:"card-img-top img-fluid", alt:"Card image cap"), food_item_path(food) %>
-              <div class="card-block" >
-                <h3 class="card-title" style="text-shadow: 2px 2px 4px #D8C0D5;">
-                  <strong><%= food.name %></strong>
-                </h3>
-                <p class="card-text" >
-                   <%= food.description  %>
-                </p>
-                <h5 class="text-xs-right">
-                  <span class="label label-pill label-primary">
-                    <%= food.price %> VND
-                  </span>
-                </h5>
-                <hr>
-                  <div class="text-xs-center">
-                    <div class="btn-group">
-                      <%= link_to "Đặt hàng", order_path(order: food.id), 
-                        class: "btn btn-secondary"%>
-                      <% if session[:order_ids].nil? %>
-                       <%= link_to "Đặt vào giỏ hàng",
-                        menu_path(order: food.id, section: params[:section]), 
-                        class: "btn btn-secondary" %>
-                      <% else  %>
-                       <% if session[:order_ids].include? food.id.to_s %>
-                        <%= link_to "Bỏ khỏi giỏ hàng",
-                          menu_path(un_order: food.id, section: params[:section]), 
-                          class: "btn btn-secondary" %>
-                      <% else  %>
-                        <%= link_to "Đặt vào giỏ hàng",
-                          menu_path(order: food.id, section: params[:section]), 
-                          class: "btn btn-secondary" %>
-                      <% end %>
-                  <% end %>
-                    </div>
-                  </div>
-              </div>
-              <div class="card-footer text-muted">
-                 <small >
-                   <%=  pluralize(food.view,"view")  %> 
-                   <% if (food.star_avg != 0.0) && (!food.star_avg.nil?)%>
-                     | star: <%= food.star_avg.round(2) %>/5.0
-                   <% end %>
-                 </small>
-                 <small class="pull-xs-right">
-                   Posted at: <%= food.created_at.strftime('%Y-%m-%d')  %>
-                 </small>
-              </div>
-            </div>
-          </div>
-    <% end %>
+    <%= render @food_items %>
   </div>

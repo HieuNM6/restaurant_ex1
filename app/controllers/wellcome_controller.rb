@@ -4,7 +4,7 @@ class WellcomeController < ApplicationController
 
   def menu
     @sections = %w(Breakfast Lunch Dinner Drinks)
-    @foods = filter_by_section(params[:section])
+    @food_items = filter_by_section(params[:section])
     unless params[:order].blank?
       (session[:order_ids] ||= []) << params[:order]
     end
@@ -13,26 +13,26 @@ class WellcomeController < ApplicationController
     end
     case params[:sort]
     when "alphabetical"
-      @foods = @foods.sort { |a,b| a.name.downcase <=> b.name.downcase } 
+      @food_items = @food_items.sort { |a,b| a.name.downcase <=> b.name.downcase } 
     when "price low to high"
-      @foods = @foods.sort { |a,b| a.price <=> b.price}
+      @food_items = @food_items.sort { |a,b| a.price <=> b.price}
     when "price high to low"
-      @foods = @foods.sort { |a,b| b.price <=> a.price}
+      @food_items = @food_items.sort { |a,b| b.price <=> a.price}
     when "view"
-      @foods = @foods.sort { |a,b| b.view <=> a.view}
+      @food_items = @food_items.sort { |a,b| b.view <=> a.view}
     end
     case params[:cuisine]
     when "Pork"
-      @foods = @foods.select { |f| f.cuisine == "Pork"}
+      @food_items = @food_items.select { |f| f.cuisine == "Pork"}
     when "Chicken"
-      @foods = @foods.select { |f| f.cuisine == "Chicken"}
+      @food_items = @food_items.select { |f| f.cuisine == "Chicken"}
     when "Fish"
-      @foods = @foods.select { |f| f.cuisine == "Fish"}
+      @food_items = @food_items.select { |f| f.cuisine == "Fish"}
     when "Beef"
-      @foods = @foods.select { |f| f.cuisine == "Beef"}
+      @food_items = @food_items.select { |f| f.cuisine == "Beef"}
     end
     unless params[:search].nil?
-      @foods = FoodItem.search(params[:search])
+      @food_items = FoodItem.search(params[:search])
     end
   end
 

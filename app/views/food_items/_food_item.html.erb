@@ -1,0 +1,51 @@
+<div class="col-xl-4 col-md-6 col-sm-12">
+  <div class="card" style="box-shadow: 2px 2px 4px #000000;">
+    <%=link_to image_tag(food_item.image_url, class:"card-img-top img-fluid", alt:"Card image cap"), food_item_path(food_item) %>
+    <div class="card-block" >
+      <h3 class="card-title" style="text-shadow: 2px 2px 4px #D8C0D5;">
+        <strong><%= food_item.name %></strong>
+      </h3>
+      <p class="card-text" >
+         <%= food_item.description  %>
+      </p>
+      <h5 class="text-xs-right">
+        <span class="label label-pill label-primary">
+          <%= food_item.price %> VND
+        </span>
+      </h5>
+      <hr>
+        <div class="text-xs-center">
+          <div class="btn-group">
+            <%= link_to "Đặt hàng", order_path(order: food_item.id), 
+              class: "btn btn-secondary"%>
+            <% if session[:order_ids].nil? %>
+             <%= link_to "Đặt vào giỏ hàng",
+              menu_path(order: food_item.id, section: params[:section]), 
+              class: "btn btn-secondary" %>
+            <% else  %>
+             <% if session[:order_ids].include? food_item.id.to_s %>
+              <%= link_to "Bỏ khỏi giỏ hàng",
+                menu_path(un_order: food_item.id, section: params[:section]), 
+                class: "btn btn-secondary" %>
+            <% else  %>
+              <%= link_to "Đặt vào giỏ hàng",
+                menu_path(order: food_item.id, section: params[:section]), 
+                class: "btn btn-secondary" %>
+            <% end %>
+        <% end %>
+          </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+       <small >
+         <%=  pluralize(food_item.view,"view")  %> 
+         <% if (food_item.star_avg != 0.0) && (!food_item.star_avg.nil?)%>
+           | star: <%= food_item.star_avg.round(2) %>/5.0
+         <% end %>
+       </small>
+       <small class="pull-xs-right">
+         Posted at: <%= food_item.created_at.strftime('%Y-%m-%d')  %>
+       </small>
+    </div>
+  </div>
+</div>
