@@ -52,7 +52,8 @@ The following **additional** features are implemented:
 
 The following **known issues**:
 
-* List bugs or things that don't work yet
+* Create order form, and commit review form not have any validation.
+* Can't order one item many times, (could order many times using url but one time press removes will remove all items have the same id)
 
 ## Video Walkthrough
 
