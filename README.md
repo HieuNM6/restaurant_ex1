@@ -48,7 +48,7 @@ URL: https://desolate-eyrie-45495.herokuapp.com/
 
 The following **additional** features are implemented:
 
-* [ ] Something nice you added.
+* [x] User can remove item on shopping cart.
 
 The following **known issues**:
 
